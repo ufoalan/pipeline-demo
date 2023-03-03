@@ -148,4 +148,5 @@ $ cd greetings-service
 $ mvn spring-boot:run
 ----
 . Go to link:http://localhost:8080[] and then follow the instructions on that page.
+. Hello Test
 
