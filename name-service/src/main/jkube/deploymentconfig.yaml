@@ -1,0 +1,46 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: name-service
+    provider: jkube
+    group: ${project.groupId}
+  name: name-service
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    app: name-service
+    provider: jkube
+    group: ${project.groupId}
+  strategy:
+    rollingParams:
+      timeoutSeconds: 3600
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: name-service
+        provider: jkube
+        group: ${project.groupId}
+    spec:
+      volumes:
+      - name: config-volume
+        configMap:
+          name: name-service
+      containers:
+      - name: name-service
+        volumeMounts:
+          - name: config-volume
+            mountPath: /deployments/application.properties
+            subPath: application.properties
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - name-service
+      from:
+        kind: ImageStreamTag
+        name: name-service:${project.version}
+    type: ImageChange
