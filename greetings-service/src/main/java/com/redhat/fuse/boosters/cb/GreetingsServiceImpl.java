@@ -6,7 +6,7 @@ import org.apache.camel.jsonpath.JsonPath;
 @Service("greetingsService")
 public class GreetingsServiceImpl implements GreetingsService {
 
-    private static final String THE_GREETINGS = "Hello, ";
+    private static final String THE_GREETINGS = "Hello Alan, ";
 
     @Override
     public Greetings getGreetings( @JsonPath("$.name") String name ) {
