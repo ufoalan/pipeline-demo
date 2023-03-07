@@ -1,12 +1,13 @@
 #!groovy
 pipeline {
-    agent {
-        any
+//    agent {
+//        any
 //        docker {
 //            image 'eclipse-temurin:18.0.2.1_1-jdk'
 //            args '--network ci --mount type=volume,source=ci-maven-home,target=/root/.m2'
 //        }
-    }
+//    }
+    agent any
 
     environment {
         PATH = '/usr/local/bin'
@@ -192,10 +193,10 @@ pipeline {
     post {
         always {
             echo '-=- remove deployment -=-'
-            sh "${PATH}/docker stop ${TEST_NAME_SERVICE_CONTAINER_NAME}"
-            sh "${PATH}/docker stop ${TEST_GREETINGS_SERVICE_CONTAINER_NAME}"
-            sh "${PATH}/docker rm ${TEST_NAME_SERVICE_CONTAINER_NAME}"
-            sh "${PATH}/docker rm ${TEST_GREETINGS_SERVICE_CONTAINER_NAME}"
+            sh "$PATH/docker stop ${TEST_NAME_SERVICE_CONTAINER_NAME}"
+            sh "$PATH/docker stop ${TEST_GREETINGS_SERVICE_CONTAINER_NAME}"
+            sh "$PATH/docker rm ${TEST_NAME_SERVICE_CONTAINER_NAME}"
+            sh "$PATH/docker rm ${TEST_GREETINGS_SERVICE_CONTAINER_NAME}"
         }
     }
 }
