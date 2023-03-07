@@ -10,7 +10,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = '/usr/local/bin'
+        PATH = "/usr/local/bin"
         ORG_NAME = 'ufoalan'
         NAME_SERVICE_APP_NAME = 'name-service'
         GREETINGS_SERVICE_APP_NAME = 'greetings-service'
