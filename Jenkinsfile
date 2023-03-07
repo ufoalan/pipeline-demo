@@ -22,14 +22,12 @@ pipeline {
     }
 
     stages {
-/*
-        stage('Prepare Environment') {
-            steps {
-                script {
-                    qualityGates = readYaml file: 'quality-gates.yaml'
-                }
-            }
-*/
+//        stage('Prepare Environment') {
+//            steps {
+//                script {
+//                    qualityGates = readYaml file: 'quality-gates.yaml'
+//                }
+//            }
         }
 
         stage('Compile') {
@@ -48,14 +46,12 @@ pipeline {
             }
         }
 
-/*
-        stage('Mutation tests') {
-            steps {
-                echo '-=- execute mutation tests -=-'
-                sh './mvnw org.pitest:pitest-maven:mutationCoverage'
-            }
-        }
-*/
+//        stage('Mutation tests') {
+//            steps {
+//                echo '-=- execute mutation tests -=-'
+//                sh './mvnw org.pitest:pitest-maven:mutationCoverage'
+//            }
+//        }
 
         stage('Package') {
             steps {
@@ -113,14 +109,12 @@ pipeline {
         stage('Performance tests') {
             steps {
                 echo '-=- execute performance tests -=-'
-/*
-                sh "./mvnw jmeter:configure@configuration jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=${APP_LISTENING_PORT} -Djmeter.target.root=${APP_CONTEXT_ROOT}"
-                perfReport(
-                    sourceDataFiles: 'target/jmeter/results/*.csv',
-                    errorUnstableThreshold: qualityGates.performance.throughput.error.unstable,
-                    errorFailedThreshold: qualityGates.performance.throughput.error.failed,
-                    errorUnstableResponseTimeThreshold: qualityGates.performance.throughput.response.unstable)
-*/
+//                sh "./mvnw jmeter:configure@configuration jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=${APP_LISTENING_PORT} -Djmeter.target.root=${APP_CONTEXT_ROOT}"
+//                perfReport(
+//                    sourceDataFiles: 'target/jmeter/results/*.csv',
+//                    errorUnstableThreshold: qualityGates.performance.throughput.error.unstable,
+//                    errorFailedThreshold: qualityGates.performance.throughput.error.failed,
+//                    errorUnstableResponseTimeThreshold: qualityGates.performance.throughput.response.unstable)
             }
         }
 
@@ -140,38 +134,36 @@ pipeline {
         //     }
         // }
 
-/*
-        stage('Dependency vulnerability scan') {
-            steps {
-                echo '-=- run dependency vulnerability tests -=-'
-                sh './mvnw dependency-check:check'
-                dependencyCheckPublisher(
-                    failedTotalCritical: qualityGates.security.dependencies.critical.failed,
-                    unstableTotalCritical: qualityGates.security.dependencies.critical.unstable,
-                    failedTotalHigh: qualityGates.security.dependencies.high.failed,
-                    unstableTotalHigh: qualityGates.security.dependencies.high.unstable,
-                    failedTotalMedium: qualityGates.security.dependencies.medium.failed,
-                    unstableTotalMedium: qualityGates.security.dependencies.medium.unstable)
-                script {
-                    if (currentBuild.result == 'FAILURE') {
-                        error('Dependency vulnerabilities exceed the configured threshold')
-                    }
-                }
-            }
-        }
+//        stage('Dependency vulnerability scan') {
+//            steps {
+//                echo '-=- run dependency vulnerability tests -=-'
+//                sh './mvnw dependency-check:check'
+//                dependencyCheckPublisher(
+//                    failedTotalCritical: qualityGates.security.dependencies.critical.failed,
+//                    unstableTotalCritical: qualityGates.security.dependencies.critical.unstable,
+//                    failedTotalHigh: qualityGates.security.dependencies.high.failed,
+//                    unstableTotalHigh: qualityGates.security.dependencies.high.unstable,
+//                    failedTotalMedium: qualityGates.security.dependencies.medium.failed,
+//                    unstableTotalMedium: qualityGates.security.dependencies.medium.unstable)
+//                script {
+//                    if (currentBuild.result == 'FAILURE') {
+//                        error('Dependency vulnerabilities exceed the configured threshold')
+//                    }
+//                }
+//            }
+//        }
 
-        stage('Code inspection & quality gate') {
-            steps {
-                echo '-=- run code inspection & check quality gate -=-'
-                withSonarQubeEnv('ci-sonarqube') {
-                    sh './mvnw sonar:sonar'
-                }
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
-*/
+//        stage('Code inspection & quality gate') {
+//            steps {
+//                echo '-=- run code inspection & check quality gate -=-'
+//                withSonarQubeEnv('ci-sonarqube') {
+//                    sh './mvnw sonar:sonar'
+//                }
+//                timeout(time: 10, unit: 'MINUTES') {
+//                    waitForQualityGate abortPipeline: true
+//                }
+//            }
+//        }
 
         stage('Push Name Service Docker image') {
             steps {
