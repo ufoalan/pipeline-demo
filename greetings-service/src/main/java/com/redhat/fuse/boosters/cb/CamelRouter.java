@@ -22,6 +22,9 @@ public class CamelRouter extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
+        String serviceHost = System.getenv().getOrDefault("NAME_SERVICE_HOST", "name-service-chart");
+        String servicePort = System.getenv().getOrDefault("NAME_SERVICE_Port", "8080");
+
         // @formatter:off
         restConfiguration()
             .component("servlet")
@@ -40,7 +43,8 @@ public class CamelRouter extends RouteBuilder {
             .hystrix().id("CamelHystrix")
                 // see application.properties how hystrix is configured
                 .log(" Try to call name Service")
-                .to("http://"+nameServiceHost+":"+nameServicePort+"/camel/name?bridgeEndpoint=true")
+//                .to("http://"+nameServiceHost+":"+nameServicePort+"/camel/name?bridgeEndpoint=true")
+                .to("http://"+serviceHost+":"+servicePort+"/camel/name?bridgeEndpoint=true")
                 .log(" Successfully called name Service")
             .onFallback()
                 // we use a fallback without network that provides a response message immediately
