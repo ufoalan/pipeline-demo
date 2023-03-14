@@ -98,6 +98,7 @@
   <modules>
     <module>name-service</module>
     <module>greetings-service</module>
+    <module>user-service</module>
     <module>itest</module>
   </modules>
 </project>
