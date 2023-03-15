@@ -8,21 +8,10 @@
 		<version>3.0.0</version>
 		<relativePath/>
 	</parent>
-	<!--<parent>
-		<groupId>com.yourcompany.newapp</groupId>
-		<artifactId>telling-sheet</artifactId>
-		<version>1.0.0</version>
-	</parent>-->
 	<artifactId>user-service</artifactId>
 	<name>Fuse :: Boosters :: Springboot :: Circuit Breaker :: User service</name>
 	<version>1.0.0</version>
-	<!--<artifactId>user-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>user-service</name>-->
 	<description>Demo project for Spring Boot</description>
-	<properties>
-		<java.version>17</java.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
